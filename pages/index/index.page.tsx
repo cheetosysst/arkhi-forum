@@ -1,38 +1,39 @@
-import { Head } from "arkhi/client";
+import { Head, Island } from "arkhi/client";
 import { CardTopic } from "#/components/Card";
-import type { Topic } from "#/renderer/types";
+import type { PageProps, Topic } from "#/renderer/types";
+import type { PageContextBuiltInServer } from "vike/types";
+import { db } from "#/database/client";
+import { api } from "#/api/api";
+import { Layout } from "../layout";
 
 export { Page };
 export const PrefetchSetting = { mode: "hover" };
 
-const tempTopics: Array<Topic> = [
-	{
-		name: "Programming",
-		url: "/programming",
-	},
-	{
-		name: "Memes",
-		url: "/memes",
-	},
-	{
-		name: "Music",
-		url: "/music",
-	},
-	{
-		name: "anime",
-		url: "/anime",
-	},
-];
-
-function Page() {
+function Page({ topics }: { topics: Array<Topic> }) {
 	return (
-		<>
+		<Layout topics={topics}>
 			<Head>
 				<title>Index Page - Arkhi</title>
 			</Head>
-			{tempTopics.map((item) => (
-				<CardTopic title={item.name} href={item.url} />
+			{topics.map((item) => (
+				<CardTopic
+					title={item.name}
+					key={item.id}
+					description={item.description}
+					href={`/${item.id}`}
+				/>
 			))}
-		</>
+		</Layout>
 	);
+}
+
+export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
+	const props = {
+		topics: (await db.query.topic.findMany()) as Array<Topic>,
+	};
+	return {
+		pageContext: {
+			pageProps: props,
+		},
+	};
 }

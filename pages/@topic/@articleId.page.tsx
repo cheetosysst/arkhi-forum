@@ -1,6 +1,8 @@
-import type { Article } from "#/renderer/types";
+import { db } from "#/database/client";
+import type { Article, Topic } from "#/renderer/types";
 import { Link } from "arkhi/client";
 import { PageContextBuiltInServer } from "vike/types";
+import { Layout } from "../layout";
 
 export { Page };
 export const PrefetchSetting = { mode: "hover" };
@@ -33,9 +35,9 @@ Esse laborum ex Lorem sunt sint consectetur. Irure occaecat deserunt reprehender
 Id proident pariatur eiusmod ipsum. Aute aliqua aliqua commodo amet fugiat deserunt cillum incididunt incididunt eu exercitation anim consequat officia. Nisi mollit ipsum laborum excepteur quis ea commodo ut id ut. Dolor excepteur ad excepteur occaecat cillum laborum minim. Fugiat anim amet minim ipsum. Qui velit in pariatur dolore incididunt deserunt esse. Cupidatat dolor nulla cillum est qui mollit dolor consequat dolor qui excepteur amet officia.`,
 };
 
-function Page({ article }: { article: Article }) {
+function Page({ article, topics }: { article: Article; topics: Array<Topic> }) {
 	return (
-		<>
+		<Layout topics={topics}>
 			<article className="max-w-3xl flex flex-col gap-4 mx-auto text-justify">
 				<header>
 					<h1 className="text-3xl">{article.title}</h1>
@@ -51,11 +53,11 @@ function Page({ article }: { article: Article }) {
 				{article.content
 					.split("\n")
 					.filter((section) => section.length)
-					.map((section) => (
-						<section>{section}</section>
+					.map((section, index) => (
+						<p key={`sec${index}`}>{section}</p>
 					))}
 			</article>
-		</>
+		</Layout>
 	);
 }
 
@@ -65,6 +67,7 @@ export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
 		pageContext: {
 			pageProps: {
 				article: mockData,
+				topics: await db.query.topic.findMany(),
 			},
 		},
 	};

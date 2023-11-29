@@ -30,8 +30,9 @@ type PageContext = PageContextClient | PageContextServer;
 
 // ==== Custom types ====
 export type Topic = {
+	id: string;
 	name: string;
-	url: string;
+	description: string | null;
 };
 
 export type Article = {
@@ -42,4 +43,13 @@ export type Article = {
 	created: Date;
 	edited: Date;
 	author: string;
+};
+
+export type Comment = {
+	id: number;
+	topic: string;
+	article: number;
+	user: number;
+	content: number;
+	created: number;
 };

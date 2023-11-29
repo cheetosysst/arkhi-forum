@@ -42,7 +42,7 @@ export function CardTopic({
 }: {
 	title: string;
 	href?: string;
-	description?: string;
+	description?: string | null;
 }) {
 	return (
 		<a

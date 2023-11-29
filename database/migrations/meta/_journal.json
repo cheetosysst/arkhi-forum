@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1700120467318,
+      "tag": "0000_magical_dormammu",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1700409482027,
+      "tag": "0001_dusty_dazzler",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1700461227138,
+      "tag": "0002_lethal_loners",
+      "breakpoints": true
+    }
+  ]
+}

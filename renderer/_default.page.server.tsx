@@ -2,12 +2,14 @@ import ReactDOMServer from "react-dom/server";
 import React from "react";
 import { PageShell } from "./PageShell";
 import { escapeInject, dangerouslySkipEscape } from "vike/server";
-import type { PageContextServer } from "./types";
+import type { PageContextServer, PageProps, Topic } from "./types";
 import { IslandProps } from "arkhi/client";
 import SuperJSON from "superjson";
 
 import { PageHeads } from "arkhi/client";
 import { generatePreloadTags, clearAssetSet } from "arkhi/client";
+import type { PageContextBuiltInServer } from "vike/types";
+import { db } from "#/database";
 
 export { render };
 // See https://vike.dev/data-fetching
@@ -15,6 +17,7 @@ export const passToClient = ["pageProps", "urlPathname"];
 
 async function render(pageContext: PageContextServer) {
 	const { Page, pageProps } = pageContext;
+	// const topics = await db.query.topic.findMany();
 	const pageHtml = ReactDOMServer.renderToString(
 		<PageShell pageContext={pageContext}>
 			<Page {...pageProps} />

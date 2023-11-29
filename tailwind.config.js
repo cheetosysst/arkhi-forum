@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ["./**/*.{html,js,jsx,ts,tsx}", "./index.html"],
+	content: [
+		"./pages/**/*.{html,js,jsx,ts,tsx}",
+		"./components/**/*.{html,js,jsx,ts,tsx}",
+		"./renderer/**/*.{html,js,jsx,ts,tsx}",
+	],
 	theme: {
 		extend: {
 			borderRadius: {

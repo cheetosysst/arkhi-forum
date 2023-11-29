@@ -5,10 +5,11 @@ import { publicProcedure, createTRPCRouter } from "./trpc.js";
  * Example router
  * Try calling this router in frontend using `api.hello.hello.useQuery()`.
  */
-export const helloRouter = createTRPCRouter({
-	hello: publicProcedure.input(z.string()).query(({ input }) => {
+export const topicRouter = createTRPCRouter({
+	getAllTopics: publicProcedure.query(async ({ ctx }) => {
+		const topics = await ctx.db.query.topic.findMany();
 		return {
-			message: `hello ${input}`,
+			topics,
 		};
 	}),
 });

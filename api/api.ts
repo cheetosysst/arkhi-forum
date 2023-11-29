@@ -10,8 +10,9 @@ import superjson from "superjson";
 const getBaseUrl = () => {
 	if (typeof window !== "undefined") return "";
 	// TODO add more edge runtime options.
-	if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-	return `http://localhost:${process.env.PORT ?? 3000}`;
+	if (process ? process.env.VERCEL_URL : import.meta.env.VERCEL_URL)
+		return `https://${import.meta.env.VERCEL_URL}`;
+	return `http://localhost:${import.meta.env.PORT ?? 3000}`;
 };
 
 /**
@@ -22,6 +23,12 @@ export const api = createTRPCProxyClient<AppRouters>({
 	links: [
 		httpBatchLink({
 			url: `${getBaseUrl()}/trpc`,
+			fetch(url, options) {
+				return fetch(url, {
+					...options,
+					credentials: "include",
+				});
+			},
 		}),
 	],
 });
