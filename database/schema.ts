@@ -7,9 +7,7 @@ export const user = sqliteTable("user", {
 	password: text("password").notNull(),
 	email: text("email").unique().notNull(),
 	avatar: text("avatar"),
-	created: integer("created", { mode: "timestamp" }).default(
-		sql`CURRENT_TIMESTAMP`,
-	),
+	created: text("created").default(sql`CURRENT_TIMESTAMP`),
 	role: text("role").default("user"),
 });
 
@@ -28,10 +26,10 @@ export const article = sqliteTable(
 			.references(() => topic.id),
 		title: text("title").notNull(),
 		content: text("content").notNull(),
-		created: integer("created", { mode: "timestamp" })
+		created: text("created")
 			.notNull()
 			.default(sql`CURRENT_TIMESTAMP`),
-		edited: integer("edited", { mode: "timestamp" })
+		edited: text("edited")
 			.notNull()
 			.default(sql`CURRENT_TIMESTAMP`),
 		author: text("author")
@@ -50,7 +48,7 @@ export const comment = sqliteTable("comment", {
 	article: integer("article").references(() => article.id),
 	user: text("user").references(() => user.username),
 	content: text("content"),
-	created: integer("created", { mode: "timestamp" }),
+	created: text("created").default(sql`CURRENT_TIMESTAMP`),
 });
 
 export const userRelation = relations(user, ({ many }) => ({

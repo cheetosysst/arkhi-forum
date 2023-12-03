@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "./trpc.js";
 import { authRouter } from "./auth.js";
 import { topicRouter } from "./topic.js";
+import { postRouter } from "./post.js";
 
 /**
  * Default router entry point.
@@ -9,6 +10,7 @@ import { topicRouter } from "./topic.js";
 export const appRouters = createTRPCRouter({
 	auth: authRouter,
 	topic: topicRouter,
+	post: postRouter,
 });
 
 export type AppRouters = typeof appRouters;

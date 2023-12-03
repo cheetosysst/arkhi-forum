@@ -3,6 +3,7 @@ export type { PageContextClient };
 export type { PageContext };
 export type { PageProps };
 
+import { article, comment, topic } from "#/database/schema";
 import type {
 	PageContextBuiltInServer,
 	PageContextBuiltInClientWithServerRouting as PageContextBuiltInClient,
@@ -29,27 +30,8 @@ type PageContextClient = PageContextBuiltInClient<Page> & PageContextCustom;
 type PageContext = PageContextClient | PageContextServer;
 
 // ==== Custom types ====
-export type Topic = {
-	id: string;
-	name: string;
-	description: string | null;
-};
+export type Topic = typeof topic.$inferSelect;
 
-export type Article = {
-	id: string;
-	topic: string;
-	title: string;
-	content: string;
-	created: Date;
-	edited: Date;
-	author: string;
-};
+export type Article = typeof article.$inferSelect;
 
-export type Comment = {
-	id: number;
-	topic: string;
-	article: number;
-	user: number;
-	content: number;
-	created: number;
-};
+export type Comment = typeof comment.$inferSelect;

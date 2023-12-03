@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "987e6503-f02d-4600-864f-853b590668d0",
+  "id": "236eda83-bb44-4597-91f8-9b5b7db2a0ac",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "article": {
@@ -37,7 +37,7 @@
         },
         "created": {
           "name": "created",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
@@ -45,7 +45,7 @@
         },
         "edited": {
           "name": "edited",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
@@ -146,10 +146,11 @@
         },
         "created": {
           "name": "created",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
         }
       },
       "indexes": {},
@@ -245,6 +246,13 @@
           "autoincrement": false,
           "default": "'new user'"
         },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "email": {
           "name": "email",
           "type": "text",
@@ -261,11 +269,19 @@
         },
         "created": {
           "name": "created",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
           "default": "CURRENT_TIMESTAMP"
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'user'"
         }
       },
       "indexes": {

@@ -3,8 +3,8 @@ CREATE TABLE `article` (
 	`topic` text NOT NULL,
 	`title` text NOT NULL,
 	`content` text NOT NULL,
-	`created` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`edited` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`created` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`edited` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`author` text NOT NULL,
 	FOREIGN KEY (`topic`) REFERENCES `topic`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`author`) REFERENCES `user`(`username`) ON UPDATE no action ON DELETE no action
@@ -16,7 +16,7 @@ CREATE TABLE `comment` (
 	`article` integer,
 	`user` text,
 	`content` text,
-	`created` integer,
+	`created` text DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (`topic`) REFERENCES `topic`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`article`) REFERENCES `article`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`user`) REFERENCES `user`(`username`) ON UPDATE no action ON DELETE no action
@@ -31,9 +31,11 @@ CREATE TABLE `topic` (
 CREATE TABLE `user` (
 	`username` text PRIMARY KEY NOT NULL,
 	`nickname` text DEFAULT 'new user' NOT NULL,
+	`password` text NOT NULL,
 	`email` text NOT NULL,
 	`avatar` text,
-	`created` integer DEFAULT CURRENT_TIMESTAMP
+	`created` text DEFAULT CURRENT_TIMESTAMP,
+	`role` text DEFAULT 'user'
 );
 --> statement-breakpoint
 CREATE INDEX `topicIdx` ON `article` (`topic`);--> statement-breakpoint
