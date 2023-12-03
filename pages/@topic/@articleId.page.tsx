@@ -10,7 +10,6 @@ export { Page };
 export const PrefetchSetting = { mode: "hover" };
 
 function Page({ article, topics }: { article: Article; topics: Array<Topic> }) {
-	console.log(article);
 	return (
 		<Layout topics={topics}>
 			<article className="max-w-3xl w-full flex flex-col gap-4 mx-auto text-justify">
@@ -50,7 +49,6 @@ export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
 		const topics = await tx.select().from(topic).limit(10);
 		return { article: articleContent, topics };
 	});
-	console.log(data);
 	return {
 		pageContext: {
 			pageProps: {

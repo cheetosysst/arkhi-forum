@@ -40,7 +40,7 @@ const PostForm = ({ topic, ...props }: { topic: string }) => {
 		api.post.post
 			.query({ title: title.value, content: content.value, topic: topic })
 			.then((res) => {
-				console.log(res);
+				window.location.assign(`/${topic}/${title.value}`);
 			})
 			.catch((e) => console.error(e));
 	};
