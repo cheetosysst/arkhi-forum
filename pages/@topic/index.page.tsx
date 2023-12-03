@@ -33,6 +33,9 @@ function Page({
 				</a>
 			</div>
 			<section className="flex flex-col gap-4">
+				{articles.length || (
+					<span className="text-center">{"no post here yet (´ ∀ ` *)"}</span>
+				)}
 				{articles.map((item) => (
 					<Card
 						key={`${name}${item.id}`}
