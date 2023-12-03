@@ -42,7 +42,7 @@ function Page({
 						title={item.title}
 						author={item.author}
 						time={item.edited}
-						href={`/${name}/${item.title}`}
+						href={`/${id}/${item.title}`}
 					/>
 				))}
 			</section>

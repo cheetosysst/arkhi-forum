@@ -73,11 +73,10 @@ const PostForm = ({ topic, ...props }: { topic: string }) => {
 const FormIsland = Island(PostForm);
 
 export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
-	const mockData = { topic: pageContext.routeParams.topic };
 	return {
 		pageContext: {
 			pageProps: {
-				topic: pageContext.routeParams.topic,
+				topic: decodeURI(decodeURI(pageContext.urlOriginal.split("/")[1])),
 				topics: await db.query.topic.findMany(),
 			},
 		},

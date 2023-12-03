@@ -42,17 +42,18 @@ export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
 			.from(article)
 			.where(
 				and(
-					eq(article.topic, pageContext.routeParams.topic),
+					eq(article.topic, decodeURI(pageContext.urlOriginal.split("/")[1])),
 					eq(article.title, decodeURI(pageContext.urlOriginal.split("/")[2])),
 				),
 			);
 		const topics = await tx.select().from(topic).limit(10);
-		return { article: articleContent, topics };
+		return { article: articleContent[0], topics };
 	});
+
 	return {
 		pageContext: {
 			pageProps: {
-				article: data.article[0],
+				article: data.article,
 				topics: data.topics,
 			},
 		},

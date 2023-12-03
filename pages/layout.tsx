@@ -90,6 +90,7 @@ function Info({ ...props }) {
 					return prev;
 			  }, false)
 			: undefined;
+	console.log(jwt);
 
 	return (
 		<div {...props}>
