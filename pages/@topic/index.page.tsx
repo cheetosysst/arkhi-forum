@@ -33,7 +33,7 @@ function Page({
 				</a>
 			</div>
 			<section className="flex flex-col gap-4">
-				{articles.length || (
+				{!articles.length && (
 					<span className="text-center">{"no post here yet (´ ∀ ` *)"}</span>
 				)}
 				{articles.map((item) => (
@@ -95,7 +95,13 @@ type Props = Topic & {
 };
 
 export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
-	const topicId = pageContext.urlOriginal.split("/")[1];
+	const topicId = pageContext.urlOriginal.split("/")[1].split("?")[0];
+	const offset = pageContext.urlParsed.search.page
+		? +pageContext.urlParsed.search.page < 0
+			? 1
+			: +pageContext.urlParsed.search.page
+		: 1;
+
 	const data = await db.transaction(async (tx) => {
 		const articles = await tx
 			.select()
@@ -103,7 +109,7 @@ export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
 			.where(eq(article.topic, topicId))
 			.orderBy(desc(article.id))
 			.limit(10)
-			.offset(0);
+			.offset((offset - 1) * 10);
 		const topics = await tx.select().from(topic).limit(10);
 		const topicMeta = (
 			await tx.select().from(topic).where(eq(topic.id, topicId))
@@ -123,7 +129,7 @@ export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
 	});
 	const props: Props = {
 		...data.topicMeta,
-		page: +pageContext.urlParsed.search.page || 1,
+		page: offset + 1,
 		topics: data.topics,
 		articles: data.articles,
 		pageCount: data.pageCount,
