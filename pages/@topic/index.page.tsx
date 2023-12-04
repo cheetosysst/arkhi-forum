@@ -1,7 +1,7 @@
 import { Card } from "#/components/Card";
 import type { Article, Topic } from "#/renderer/types";
 import type { PageContextBuiltInServer } from "vike/types";
-import { Layout } from "../layout";
+import Layout from "../layout";
 import { db } from "#/database/client";
 import { article, topic } from "#/database/schema";
 import { desc, eq, sql } from "drizzle-orm";

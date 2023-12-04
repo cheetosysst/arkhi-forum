@@ -1,7 +1,7 @@
 import { db } from "#/database/client";
 import type { Article, Topic } from "#/renderer/types";
-import { PageContextBuiltInServer } from "vike/types";
-import { Layout } from "../layout";
+import type { PageContextBuiltInServer } from "vike/types";
+import Layout from "../layout";
 import { article, topic } from "#/database/schema";
 import { and, eq } from "drizzle-orm";
 

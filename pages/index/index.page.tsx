@@ -1,10 +1,9 @@
-import { Head, Island } from "arkhi/client";
+import { Head } from "arkhi/client";
 import { CardTopic } from "#/components/Card";
-import type { PageProps, Topic } from "#/renderer/types";
+import type { Topic } from "#/renderer/types";
 import type { PageContextBuiltInServer } from "vike/types";
 import { db } from "#/database/client";
-import { api } from "#/api/api";
-import { Layout } from "../layout";
+import Layout from "../layout";
 
 export { Page };
 export const PrefetchSetting = { mode: "hover" };

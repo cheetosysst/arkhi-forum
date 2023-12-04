@@ -4,7 +4,7 @@ import { Island } from "arkhi/client";
 import { LogIn, LogOut, Menu, User, UserPlus } from "lucide-react";
 import type { MouseEventHandler, PropsWithChildren } from "react";
 
-export function Layout({
+export default function Layout({
 	children,
 	topics,
 }: PropsWithChildren & { topics: Array<Topic> }) {
@@ -53,7 +53,7 @@ export function Layout({
 	);
 }
 
-function Logout({ ...props }) {
+export function Logout({ ...props }) {
 	const handler: MouseEventHandler<HTMLButtonElement> = (e) => {
 		e.preventDefault();
 		api.auth.logout
@@ -77,9 +77,7 @@ function Logout({ ...props }) {
 	);
 }
 
-export const UserIsland = Island(Info);
-
-function Info({ ...props }) {
+export function Info({ ...props }) {
 	const jwt =
 		typeof document !== "undefined"
 			? document.cookie.split(";").reduce((prev, curr, index) => {
@@ -125,3 +123,5 @@ function Info({ ...props }) {
 		</div>
 	);
 }
+
+export const UserIsland = Island(Info);

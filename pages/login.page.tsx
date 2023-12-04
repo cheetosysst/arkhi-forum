@@ -1,11 +1,11 @@
+import { db } from "#/database/client";
 import { api } from "#/api/api";
 import { hash } from "#/utils/hash";
 import { Head, Island } from "arkhi/client";
-import { FormEventHandler } from "react";
-import { Layout } from "./layout";
-import type { PageContextBuiltInServer } from "vike/types";
-import { db } from "#/database/client";
+import Layout from "#/pages/layout";
 import type { Topic } from "#/renderer/types";
+import type { FormEventHandler } from "react";
+import type { PageContextBuiltInServer } from "vike/types";
 
 export { Page };
 export const PrefetchSetting = { mode: "hover" };
@@ -30,8 +30,6 @@ declare global {
 		password: HTMLInputElement;
 	}
 }
-
-const LoginIsland = Island(LoginForm);
 
 function LoginForm({ ...props }) {
 	const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -88,6 +86,7 @@ function LoginForm({ ...props }) {
 		</form>
 	);
 }
+const LoginIsland = Island(LoginForm);
 
 export async function onBeforeRender(pageContext: PageContextBuiltInServer) {
 	const props = {

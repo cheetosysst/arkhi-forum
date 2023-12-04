@@ -2,7 +2,7 @@ import { db } from "#/database/client";
 import type { Topic } from "#/renderer/types";
 import { Island } from "arkhi/client";
 import type { PageContextBuiltInServer } from "vike/types";
-import { Layout } from "../layout";
+import Layout from "../layout";
 import { type FormEventHandler } from "react";
 import { api } from "#/api/api";
 
